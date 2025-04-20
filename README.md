@@ -1,7 +1,7 @@
-# Install PassWall2 on OpenWrt router
+# Install PassWall2 on Phicomm N1 OpenWrt router (AArch64 : Cortex-A53)
 [فارسی](https://github.com/Ramtiiin/iran-ip/blob/main/README.fa.md)
 
-⚠️ This configuration has been tested on a [Google WiFi Router](https://support.google.com/googlenest/answer/7168315?hl=en) running OpenWrt version OpenWrt 23.05.2 r23630-842932a63d stable. Ensure that your router has **at least 128MB of storage** before executing these commands. ⚠️
+⚠️ This configuration has been tested on a Phicomm N1 running OpenWrt version ImmortalWrt 24.10-SNAPSHOT r33004-bca880a0e8. Ensure that your router has **at least 128MB of storage** before executing these commands. ⚠️
 
 ## 1. Initial Settings
 
@@ -26,7 +26,7 @@ Read more about [OpenWrt initial settings](https://github.com/Ramtiiin/Install-P
    opkg remove dnsmasq
    opkg install dnsmasq-full
 
-4. Install required kernel modules:
+4. Install required kernel modules if not installed:
    ```sh
    opkg install kmod-nft-tproxy kmod-nft-socket
    
@@ -37,9 +37,8 @@ Read more about [OpenWrt initial settings](https://github.com/Ramtiiin/Install-P
 
 6. Set up custom feeds for Passwall:
 ```sh
-   read release arch << EOF
-   $(. /etc/openwrt_release ; echo ${DISTRIB_RELEASE%.*} $DISTRIB_ARCH)
-   EOF
+   release=24.10
+   arch=aarch64_cortex-a53
 
    for feed in passwall_packages passwall2; do
      echo "src/gz $feed https://master.dl.sourceforge.net/project/openwrt-passwall-build/releases/packages-$release/$arch/$feed" >> /etc/opkg/customfeeds.conf
